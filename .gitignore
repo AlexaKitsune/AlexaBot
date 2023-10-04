@@ -1,0 +1,16 @@
+.vscode/
+3d-models/stl/
+3d-models/*.skb
+exclude/
+src/image_recognition/__pycache__
+src/image_recognition/models/*
+src/language_processing/__pycache__
+src/language_processing/models/*
+src/memory/day_resumes/*
+src/memory/exp/*
+src/memory/week_resumes/*
+src/test/
+src/venv/
+src/voice_recognition/__pycache__
+src/voice_recognition/models/vosk-model-es-0.42/
+src/config.json
