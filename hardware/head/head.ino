@@ -12,11 +12,11 @@ Servo servoEarR;
 Servo servoNeckZ;
 
 void setup() {
-  servoEyesX.attach(8); // Asigna el pin 8 al servo
-  servoEyesY.attach(9);
+  servoEyesX.attach(12); // Asigna el pin 8 al servo
+  servoEyesY.attach(11);
   servoEyebrowL.attach(10);
-  servoEyebrowR.attach(11);
-  servoJaws.attach(12);
+  servoEyebrowR.attach(9);
+  servoJaws.attach(8);
   servoEarL.attach(7);
   servoEarR.attach(6);
   servoNeckZ.attach(5);
@@ -81,7 +81,7 @@ void processJson(String jsonStr) {
     int ear_r = doc["ear_r"];
 
     servoEarL.write(ear_l);
-    servoEarR.write(ear_r);
+    servoEarR.write(180 - ear_r);
     digitalWrite(13, HIGH);
   }
 
