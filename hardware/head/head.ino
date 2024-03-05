@@ -77,59 +77,25 @@ void processJson(String jsonStr) {
         }
     }
 
-    // Verificar si los campos "difference_x" y "difference_y" existen en el JSON
     if (doc.containsKey("difference_x") && doc.containsKey("difference_y")) {
         int difference_x = doc["difference_x"];
         int difference_y = doc["difference_y"];
-
-        //eyePositions(servoEyesX, difference_x);
-        //eyePositions(servoEyesY, difference_y);
-        if (difference_x > eyesLimit) {
-            difference_x = eyesLimit;
-        }
-        if (difference_x < -eyesLimit) {
-            difference_x = -eyesLimit;
-        }
-            
-        if (difference_y > eyesLimit) {
-            difference_y = eyesLimit;
-        }
-        if (difference_y < -eyesLimit) {
-            difference_y = -eyesLimit;
-        }
-        servoEyesX.startEaseTo(difference_x + 90, 100, START_UPDATE_BY_INTERRUPT);
-        servoEyesY.startEaseTo(difference_y + 90, 100, START_UPDATE_BY_INTERRUPT);
+        eyePositions(servoEyesX, difference_x);
+        eyePositions(servoEyesY, difference_y);
         digitalWrite(13, HIGH);
     }
 
     if (doc.containsKey("eyebrow_l") && doc.containsKey("eyebrow_r")) {
         int eyebrow_l = doc["eyebrow_l"];
         int eyebrow_r = doc["eyebrow_r"];
-
-        //eyebrowPositions(servoEyebrowL, eyebrow_l);
-        //eyebrowPositions(servoEyebrowR, eyebrow_r);
-        if (eyebrow_l > eyebrowLimit) {
-            eyebrow_l = eyebrowLimit;
-        }
-        if (eyebrow_l < -eyebrowLimit) {
-            eyebrow_l = -eyebrowLimit;
-        }
-            
-        if (eyebrow_r > eyebrowLimit) {
-            eyebrow_r = eyebrowLimit;
-        }
-        if (eyebrow_r < -eyebrowLimit) {
-            eyebrow_r = -eyebrowLimit;
-        }
-        servoEyebrowL.startEaseTo(eyebrow_l + 90, 100, START_UPDATE_BY_INTERRUPT);
-        servoEyebrowR.startEaseTo(eyebrow_r + 90, 100, START_UPDATE_BY_INTERRUPT);
+        eyebrowPositions(servoEyebrowL, eyebrow_l);
+        eyebrowPositions(servoEyebrowR, eyebrow_r);
         digitalWrite(13, HIGH);
     }
 
     if (doc.containsKey("ear_l") && doc.containsKey("ear_r")) {
         int ear_l = doc["ear_l"];
         int ear_r = doc["ear_r"];
-
         servoEarL.startEaseTo(ear_l, 100, START_UPDATE_BY_INTERRUPT);
         servoEarR.startEaseTo(180 - ear_r, 100, START_UPDATE_BY_INTERRUPT);
         digitalWrite(13, HIGH);
@@ -157,13 +123,12 @@ void processJson(String jsonStr) {
 
     if (doc.containsKey("neck_z")) {
       int neck_z = doc["neck_z"];
-  
       servoNeckZ.startEaseTo(neck_z + 90, 40, START_UPDATE_BY_INTERRUPT);
       digitalWrite(13, HIGH);
     }
 }
 
-void eyePositions(ServoEasing servoEyes, int pos) { // unused
+void eyePositions(ServoEasing &servoEyes, int pos) {
     int eyesLimit = 30;
     if (pos > eyesLimit) {
         pos = eyesLimit;
@@ -174,7 +139,7 @@ void eyePositions(ServoEasing servoEyes, int pos) { // unused
     servoEyes.startEaseTo(pos + 90, 100, START_UPDATE_BY_INTERRUPT);
 }
 
-void eyebrowPositions(ServoEasing servoEyebrow, int pos) { // unused
+void eyebrowPositions(ServoEasing &servoEyebrow, int pos) {
     int eyebrowLimit = 35;
     if (pos > eyebrowLimit) {
         pos = eyebrowLimit;
